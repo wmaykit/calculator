@@ -13,6 +13,6 @@ public class Main {
 
     public static String calc(String input) {
         validator.validate(input);
-        return input;
+        return new Parser(input).parse().calculate();
     }
 }
