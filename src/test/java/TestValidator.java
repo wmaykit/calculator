@@ -67,7 +67,6 @@ public class TestValidator {
 
     @Test
     public void positiveValidationArabicNumbers() {
-        assertDoesNotThrow(() -> validator.validate("0+0"));
         assertDoesNotThrow(() -> validator.validate("1+2"));
         assertDoesNotThrow(() -> validator.validate("3+4"));
         assertDoesNotThrow(() -> validator.validate("5+6"));
@@ -86,6 +85,7 @@ public class TestValidator {
 
     @Test
     public void negativeValidationArabicNumbers() {
+        assertThrows(InvalidNumber.class, () -> validator.validate("0+1"), "zero is unsupported");
         assertThrows(InvalidNumber.class, () -> validator.validate("42+3"), "incorrect first operand");
         assertThrows(InvalidNumber.class, () -> validator.validate("1+11"), "incorrect second operand");
     }

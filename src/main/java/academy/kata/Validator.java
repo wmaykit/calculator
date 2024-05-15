@@ -5,9 +5,13 @@ import academy.kata.exceptions.InvalidNumber;
 
 import java.util.function.Predicate;
 
+import static academy.kata.RegexConstants.ARAB_REGEXP;
+import static academy.kata.RegexConstants.OPERATORS;
+import static academy.kata.RegexConstants.ROMAN_REGEXP;
+import static academy.kata.RegexConstants.WHITE_SPACES;
+
 public class Validator {
-    private final String ARAB_REGEXP = "^\\s*([0-9]{1,2})\\s*([+\\-/*])\\s*([0-9]{1,2})\\s*$";
-    private final String ROMAN_REGEXP = "^\\s*([IVX]+)\\s*([+\\-/*])\\s*([IVX]+)\\s*$";
+
 
     public void validate(String expression) {
         validateFormat(expression);
@@ -29,14 +33,15 @@ public class Validator {
     }
 
     private String[] parseNumbers(String expression) {
-        return expression.replaceAll("\\s", "").split("[+\\-/*]");
+        return expression.replaceAll(WHITE_SPACES, "").split(OPERATORS);
     }
 
     private boolean validateArabicNumber(String numberString) {
-        return Integer.parseInt(numberString) <= 10;
+        int num = Integer.parseInt(numberString);
+        return num <= 10 && num > 0;
     }
 
     private boolean validateRomanNumber(String numberString) {
-        return Converter.romanToArabic(numberString) != null;
+        return Converter.romanToInteger(numberString) != null;
     }
 }
